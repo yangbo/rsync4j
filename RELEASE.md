@@ -46,4 +46,6 @@ ChangeLog
   
   * Upgrade commons-io to version 2.17.0 to avoid Vulnerabilities issue: Vulnerabilities from dependencies: [CVE-2024-47554](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2024-47554).
 
+  * Upgrade maven-javadoc-plugin to 3.10.1 to support javadoc of module-info.java.
 
+  * Upgrade processoutput4j to version 0.0.14-SNAPSHOT to support module.
