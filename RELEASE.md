@@ -1,7 +1,7 @@
 How to make a release
 =====================
 
-* Switch to Java 8
+* Switch to Java 9
 * Run the following command to deploy the artifact:
 
   ```
@@ -32,3 +32,18 @@ How to make a release
     ```
     
   * deployment happens automatically on commit
+
+ChangeLog
+=====================
+
+* 2024-10-15 [Bob](mailto:bo.yang@telecwin.com)
+
+  * Change Java source and target level to Version 9 to support JDK9 module system.
+
+  * Change rsync4j-core to JDK9 module named 'com.github.fracpete.rsync4j.core'.
+
+  * Upgrade commons-lang to commons-lang3 version 3.17.0 to support JDK9 module system.
+  
+  * Upgrade commons-io to version 2.17.0 to avoid Vulnerabilities issue: Vulnerabilities from dependencies: [CVE-2024-47554](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2024-47554).
+
+
