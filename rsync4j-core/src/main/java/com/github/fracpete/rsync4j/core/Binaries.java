@@ -129,8 +129,11 @@ public class Binaries {
 
     try {
       resource = inDir;
-      if (!resource.endsWith("/"))
-	resource += "/";
+      if (!resource.endsWith("/")) {
+        resource += "/";
+      }
+      // fix file name with \r ending.
+      name = name.trim();
       resource += name;
       outFull = outDir + File.separator + name;
       LOGGER.info("Copying resource '" + resource + "' to '" + outFull + "'");

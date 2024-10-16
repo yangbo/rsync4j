@@ -48,4 +48,6 @@ ChangeLog
 
   * Upgrade maven-javadoc-plugin to 3.10.1 to support javadoc of module-info.java.
 
+  * Upgrade maven-compiler-plugin to 3.13.0 to support java9 module.
+
   * Upgrade processoutput4j to version 0.0.14-SNAPSHOT to support module.
