@@ -3517,7 +3517,7 @@ public class RSync
       .help("print version number")
       .action(Arguments.storeTrue());
     parser.addArgument("--checksum-choice")
-      .setDefault("")
+      .setDefault("")               // change from "auto" to "", because --daemon require no --checksum-choice option.
       .dest("checksumchoice")
       .help("choose the checksum algorithm: auto, xxh128, xxh3, xxh64/xxhash, md5, md4, sha1, none (since 3.1.3)");
     parser.addArgument("-U", "--atimes")
