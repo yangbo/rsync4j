@@ -3761,7 +3761,7 @@ public class RSync
       System.err.println("Source and destination required!");
       return false;
     }
-    if (!isListOnly()) {
+    if (!isListOnly() && !isDaemon()) {
       destination(src_dest.get(src_dest.size() - 1));
       src_dest.remove(src_dest.size() - 1);
     }
@@ -3777,6 +3777,6 @@ public class RSync
    */
   public static void main(String[] args) throws Exception {
     run(new RSync(), args);
-    // System.out.println("rsync daemon start ok? " + Utils.isListening(12000));
+    System.out.println("rsync daemon start ok? " + Utils.isListening(12000));
   }
 }
