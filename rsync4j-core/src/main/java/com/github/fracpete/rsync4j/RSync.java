@@ -2699,7 +2699,7 @@ public class RSync
    * @param configFile the config file of '--config FILE' option
    * @return itself
    */
-  public RSync setConfig(String configFile) {
+  public RSync config(String configFile) {
     this.config = configFile;
     return this;
   }
@@ -2918,10 +2918,10 @@ public class RSync
     binary = Binaries.rsyncBinary();
     result = options();
     result.add(0, binary);
-    if (getSources().size() == 0)
+    if (getSources().isEmpty() && !isDaemon())
       throw new IllegalStateException("No source(s) defined!");
     result.addAll(getSources());
-    if ((getDestination() == null) && !isListOnly())
+    if ((getDestination() == null) && !isListOnly() && !isDaemon())
       throw new IllegalStateException("No destination defined!");
     if (getDestination() != null)
       result.add(getDestination());
@@ -3517,7 +3517,7 @@ public class RSync
       .help("print version number")
       .action(Arguments.storeTrue());
     parser.addArgument("--checksum-choice")
-      .setDefault("auto")
+      .setDefault("")
       .dest("checksumchoice")
       .help("choose the checksum algorithm: auto, xxh128, xxh3, xxh64/xxhash, md5, md4, sha1, none (since 3.1.3)");
     parser.addArgument("-U", "--atimes")
@@ -3580,6 +3580,15 @@ public class RSync
       .dest("trustsender")
       .help("trust the remote sender's file list (since 3.2.5)")
       .action(Arguments.storeTrue());
+    parser.addArgument("--daemon")
+            .setDefault(false)
+            .dest("daemon")
+            .help("run as an rsync daemon")
+            .action(Arguments.storeTrue());
+    parser.addArgument("--config")
+            .setDefault(false)
+            .dest("config")
+            .help("specify alternate rsyncd.conf file");
     parser.addArgument("--additional")
       .setDefault(new ArrayList<String>())
       .dest("additional")
@@ -3738,6 +3747,8 @@ public class RSync
     writeDevices(ns.getBoolean("writedevices"));
     copyAs(ns.getString("copyas"));
     checksumChoice(ns.getString("checksumchoice"));
+    daemon(ns.getBoolean("daemon"));
+    config(ns.getString("config"));
     additional(ns.getList("additional").toArray(new String[0]));
 
     List<String> src_dest = ns.getList("source(s)/destination");
@@ -3745,7 +3756,7 @@ public class RSync
       System.err.println("Source required!");
       return false;
     }
-    if ((src_dest.size() < 2) && !isListOnly()) {
+    if ((src_dest.size() < 2) && !isListOnly() && !isDaemon()) {
       System.err.println("Source and destination required!");
       return false;
     }
