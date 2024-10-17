@@ -20,6 +20,9 @@
 
 package com.github.fracpete.rsync4j.core;
 
+import java.net.InetAddress;
+import java.net.InetSocketAddress;
+import java.net.Socket;
 import java.util.List;
 
 /**
@@ -67,5 +70,20 @@ public class Utils {
     }
 
     return result.toString();
+  }
+
+  /**
+   * Test if the port is listening.
+   * @param port to test
+   * @return true if the port is listening
+   */
+  public static boolean isListening(int port) {
+    try (Socket socket = new Socket()) {
+      socket.connect(new InetSocketAddress(port));
+      return true;
+    } catch (Exception ex) {
+      // 端口不可用
+      return false;
+    }
   }
 }

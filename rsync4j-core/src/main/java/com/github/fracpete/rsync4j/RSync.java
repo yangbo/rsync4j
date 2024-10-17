@@ -21,6 +21,7 @@ package com.github.fracpete.rsync4j;
 
 import com.github.fracpete.rsync4j.core.AbstractBinaryWithTimeout;
 import com.github.fracpete.rsync4j.core.Binaries;
+import com.github.fracpete.rsync4j.core.Utils;
 import net.sourceforge.argparse4j.impl.Arguments;
 import net.sourceforge.argparse4j.inf.ArgumentParser;
 import net.sourceforge.argparse4j.inf.Namespace;
@@ -3776,5 +3777,6 @@ public class RSync
    */
   public static void main(String[] args) throws Exception {
     run(new RSync(), args);
+    // System.out.println("rsync daemon start ok? " + Utils.isListening(12000));
   }
 }
