@@ -51,4 +51,5 @@ ChangeLog
   * Upgrade maven-compiler-plugin to 3.13.0 to support java9 module.
 
   * Upgrade processoutput4j to version 0.0.14-SNAPSHOT to support module.
-  * 
+
+  * Support windows7 64bits OS by using classic cygwin and rsync.
