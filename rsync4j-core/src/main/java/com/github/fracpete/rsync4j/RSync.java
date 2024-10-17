@@ -310,6 +310,16 @@ public class RSync
   protected SshPass sshPass;
 
   /**
+   * --daemon option enabled?
+   */
+  protected boolean daemon;
+
+  /**
+   * --config=FILE, specify alternate rsyncd.conf file
+   */
+  protected String config;
+
+  /**
    * Resets the members.
    */
   public void reset() {
@@ -417,7 +427,6 @@ public class RSync
     eight_bit_output = false;
     human_readable = false;
     progress = false;
-    progress = false;
     itemize_changes = false;
     out_format = "";
     log_file = "";
@@ -450,6 +459,8 @@ public class RSync
     copy_as = "";
     checksum_choice = "";
     sshPass = null;
+    daemon = false;
+    config = "";
   }
 
   /**
@@ -2666,6 +2677,41 @@ public class RSync
   }
 
   /**
+   * Set --daemon option
+   * @param daemon true for setting '--daemon' option
+   * @return itself
+   */
+  public RSync daemon(boolean daemon) {
+    this.daemon = daemon;
+    return this;
+  }
+
+  /**
+   * Returns the --daemon option in use
+   * @return true if set the --daemon option.
+   */
+  public boolean isDaemon() {
+    return this.daemon;
+  }
+
+  /**
+   * Set the --config FILE option
+   * @param configFile the config file of '--config FILE' option
+   * @return itself
+   */
+  public RSync setConfig(String configFile) {
+    this.config = configFile;
+    return this;
+  }
+
+  /**
+   * @return the config file of '--config FILE'.
+   */
+  public String getConfig(){
+    return this.config;
+  }
+
+  /**
    * Assembles the arguments for the binary.
    *
    * @return		the options
@@ -2843,11 +2889,13 @@ public class RSync
     if (isWriteDevices()) result.add("--write-devices");
     if (!getCopyAs().isEmpty()) result.add("--copy-as=" + getCopyAs());
     if (!getChecksumChoice().isEmpty()) result.add("--checksum-choice=" + getChecksumChoice());
+    if (isDaemon()) result.add("--daemon");
+    if (!getConfig().isEmpty()) result.add("--config=" + getConfig());
     // generic options
     if (additional != null) {
       for (String a : additional) {
-	if ((a != null) && !a.isEmpty())
-	  result.add(a);
+	    if ((a != null) && !a.isEmpty())
+	      result.add(a);
       }
     }
 
