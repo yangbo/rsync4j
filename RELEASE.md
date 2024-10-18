@@ -53,3 +53,5 @@ ChangeLog
   * Upgrade processoutput4j to version 0.0.14-SNAPSHOT to support module.
 
   * Support windows7 64bits OS by using classic cygwin and rsync.
+
+  * Add Utils.Windows API
